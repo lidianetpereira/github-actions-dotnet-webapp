@@ -1,0 +1,36 @@
+name: Workflow de teste build .NET Core
+
+on:
+  push:
+    branches: [ "main" ]
+
+  schedule:
+    - cron: '30 0 * * 1'
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # faz o checkout
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v2
+
+      # loga uma mensagem
+      - name: Logg info
+        run: echo Starting build...
+
+      - name: Install dependencies
+        run: dotnet restore **/*.csproj
+
+      - name: Build application
+        run: dotnet build **/*.csproj --no-restore
+
+
+
+
+
